@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/angular.tree.directive.css">
+
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
+  <script src="../angular.tree.directive.js"></script>
+  <style>
+    div[data-tree-model] li {
+      line-height: 35px;
+    }
+
+    div[data-tree-model] li .btn-node {
+      background-color: white;
+    }
+
+    div[data-tree-model] li .selected {
+      background-color: #CFCFCF;
+    }
+  </style>
+</head>
+<body ng-app="myApp">
+  <div ng-controller="myController">
+    <div class="row">
+      <div class="col-lg-6">
+          <div
+            data-angular-treeview="true"
+            data-tree-id="treeCollapsible"
+            data-tree-model="treeCollapsible"
+            data-node-id="id"
+            data-node-label="label"
+            data-node-children="children"
+            data-collapsibility="true">
+            <root>
+              <i class="collapsed" data-ng-show="node.children.length && node.collapsed" data-ng-click="treeCollapsible.selectNodeHead(node)"></i>
+              <i class="expanded" data-ng-show="node.children.length && !node.collapsed" data-ng-click="treeCollapsible.selectNodeHead(node)"></i>
+              <i class="normal" data-ng-hide="node.children.length"></i>
+              <span data-ng-click="treeCollapsible.selectNodeLabel(node)">
+                <button class="btn btn-sm btn-node" data-ng-class="node.selected" >{{node.label}} / root</button>
+              </span>
+              <span ng-show="node.selected">
+                <button class="btn btn-sm btn-default">Modify</button>
+                <button class="btn btn-sm btn-danger">Remove</button>
+              </span>
+            </root>
+            <node>
+              <i class="collapsed" data-ng-show="node.children.length && node.collapsed" data-ng-click="treeCollapsible.selectNodeHead(node)"></i>
+              <i class="expanded" data-ng-show="node.children.length && !node.collapsed" data-ng-click="treeCollapsible.selectNodeHead(node)"></i>
+              <i class="normal" data-ng-hide="node.children.length"></i>
+              <span data-ng-click="treeCollapsible.selectNodeLabel(node)">
+                <button class="btn btn-sm btn-node" data-ng-class="node.selected" >{{node.label}} / node</button>
+              </span>
+              <span ng-show="node.selected">
+                <button class="btn btn-sm btn-danger">Remove</button>
+              </span>
+            </node>
+          </div><!-- tree -->
+      </div><!--col -->
+    </div><!--row -->
+  </div>
+  <script>
+    angular.module('myApp', ['angularTreeview'])
+      .controller('myController', ['$scope', function($scope) {
+        $scope.treeCollapsible = [{
+          id: 'id-01',
+          label: 'label-01',
+          children: [{
+            id: 'id-011',
+            label: 'label-011',
+            children: []
+          },{
+            id: 'id-012',
+            label: 'label-012',
+            children: []
+          }]
+        },{
+          id: 'id-02',
+          label: 'label-02',
+          children: []
+        },{
+          id: 'id-03',
+          label: 'label-03',
+          children: [{
+            id: 'id-031',
+            label: 'label-031',
+            children: [{
+              id: 'id-0311',
+              label: 'label-0311',
+              children: [{
+                id: 'id-03111',
+                label: 'label-03111',
+                children: []
+              }]
+            }]
+          },{
+            id: 'id-032',
+            label: 'label-032',
+            children: []
+          },{
+            id: 'id-033',
+            label: 'label-033',
+            children: []
+          }]
+        }];
+      }]);
+  </script>
+</body>
+</html>
